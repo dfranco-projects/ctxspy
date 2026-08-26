@@ -72,13 +72,16 @@ version_variables = ["src/ctxspy/__init__.py:__version__"]
 commit_message = "chore(release): {version} [skip ci]"
 allow_zero_version = true
 major_on_zero = false
-# Runs inside the PSR GitHub Action's Docker container, which has pip but not uv.
 build_command = """
-    python -m pip install 'uv ~= 0.11.14'
     uv lock --upgrade-package "$PACKAGE_NAME"
     git add uv.lock
     uv build
 """
+
+[tool.uv]
+# gitpython 3.1.60 removed Actor.name_email_regex, which python-semantic-release
+# still uses (PSR issue #1476). Drop once PSR ships the fix.
+constraint-dependencies = ["gitpython<3.1.60"]
 
 [dependency-groups]
 dev = [
