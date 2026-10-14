@@ -63,7 +63,7 @@ jobs:
         run: uv run semantic-release publish
       - name: Upload dist artifacts
         if: steps.release.outputs.released == 'true'
-        uses: actions/upload-artifact@v7.0.1
+        uses: actions/upload-artifact@v7.0.2
         with:
           name: dist
           path: dist/
